@@ -18,7 +18,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// 3.windowサイズを設定する
-		frame.setSize(300, 200);
+		frame.setSize(300, 100);
 
 		// 4.windowを見えるように(visible)する
 		frame.setVisible(true);
