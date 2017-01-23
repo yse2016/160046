@@ -12,9 +12,11 @@ public class Idean {
 
 class IdeanMan implements ActionListener{
 	JFrame frame;
-	JButton btn;
+	JButton btnOpen;
+	JButton btnSave;
 	JPanel panel;
 	JTextArea area;
+	JTextArea area2;
 	JScrollPane scrollPAne;
 	String filedata;
 	String textdata;
@@ -24,6 +26,19 @@ class IdeanMan implements ActionListener{
 		frame.setLocation(400,300);
 		frame.setSize(500,400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		btnOpen = new JButton("Open data");
+		btnSave = new JButton("Save data");
+
+		field = new JTextField(20);
+		area = new JTextArea(10,30);
+		area2 = new JTextArea(5,20);
+		area.setLineWrap(true);
+
+		panel = new JPanel();
+		panel.add(field);
+		panel.add(btnOpen);
+		panel.add(btnSave);
 	}
 
 	public void actionPerformed(ActionEvent ae){
