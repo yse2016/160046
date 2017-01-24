@@ -4,44 +4,64 @@ import javax.swing.*;
 import java.io.*;
 
 public class Idean {
-	public static void main(String[] args) {
-		IdeanMan im = new IdeanMan();
-	}
+    public static void main(String[] args) {
+        IdeanMan im = new IdeanMan();
+    }
 }
 
 
-class IdeanMan implements ActionListener{
-	JFrame frame;
-	JButton btnOpen;
-	JButton btnSave;
-	JPanel panel;
-	JTextArea area;
-	JTextArea area2;
-	JScrollPane scrollPAne;
-	String filedata;
-	String textdata;
+class IdeanMan implements ActionListener {
 
-	public IdeanMan() {
-		frame = new JFrame("Idean");
-		frame.setLocation(400,300);
-		frame.setSize(500,400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JFrame frame; 
+    JTextField fileName;
+    JPanel filePanel;
+    JButton openBtn;
+    JButton saveBtn;
+    JTextArea textArea;
+    JScrollPane scrollPane;
 
-		btnOpen = new JButton("Open data");
-		btnSave = new JButton("Save data");
+    public IdeanMan() {
+        frame = new JFrame("TextEditor");
+        frame.setLocation(600, 50);
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		field = new JTextField(20);
-		area = new JTextArea(10,30);
-		area2 = new JTextArea(5,20);
-		area.setLineWrap(true);
+        fileName = new JTextField(15);
 
-		panel = new JPanel();
-		panel.add(field);
-		panel.add(btnOpen);
-		panel.add(btnSave);
-	}
+        openBtn = new JButton("開く");
+        openBtn.addActionListener(this);
+        openBtn.setActionCommand("open");
 
-	public void actionPerformed(ActionEvent ae){
+        saveBtn = new JButton("保存");
+        saveBtn.addActionListener(this);
+        saveBtn.setActionCommand("save");
 
-	}
+        textArea = new JTextArea(10, 30);
+        scrollPane = new JScrollPane(textArea);
+
+        filePanel = new JPanel();
+        filePanel.add(fileName);
+        filePanel.add(openBtn);
+        filePanel.add(saveBtn);
+
+        Container con = frame.getContentPane();
+        con.setLayout(new GridLayout(2, 1));
+        con.add(filePanel);
+        con.add(scrollPane);
+
+        frame.setVisible(true);
+    }
+
+
+    public void actionPerformed(ActionEvent ae){
+        textArea.setText("ALOHA");
+
+        String cmd = ae.getActionCommand();
+
+        if(cmd.equals("open")) {
+            textArea.setText("OPEN...");
+        } else if (cmd.equals("save")) {
+            textArea.setText("SAVE...");
+        }
+    }
 }
