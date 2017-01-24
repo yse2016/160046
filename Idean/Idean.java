@@ -3,14 +3,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class Idean{
-    public static void main(String[] args){
-        IdeanMan im = new IdeanMan();
+public class Idean {
+    public static void main(String[] args) {
+        IdeanMan man = new IdeanMan();
     }
 }
 
-class IdeanMan implements ActionListener{
 
+class IdeanMan implements ActionListener {
     JFrame frame;
     JButton btnOpen;
     JButton btnSave;
@@ -23,19 +23,18 @@ class IdeanMan implements ActionListener{
     String textdata;
 
 
-    public IdeanMan(){
-
-        frame = new JFrame("HELLO");
-        frame.setLocation(400,250);
-        frame.setSize(500,400);
+    public IdeanMan() {
+        frame = new JFrame("Idean");
+        frame.setLocation(400, 250);
+        frame.setSize(500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        btnOpen = new JButton("単語２個表示");
-        btnSave = new JButton("メモを保存");
+        btnOpen = new JButton("単語2個");
+        btnSave = new JButton("保存");
 
         field = new JTextField(20);
-        area = new JTextArea(10,30);
-        area2 = new JTextArea(5,20);
+        area = new JTextArea(10, 30);
+        area2 = new JTextArea(5, 20);
         area.setLineWrap(true);
 
         panel = new JPanel();
@@ -47,7 +46,7 @@ class IdeanMan implements ActionListener{
         scrollPane = new JScrollPane(area);
 
         Container con = frame.getContentPane();
-        con.setLayout(new GridLayout(2,1));
+        con.setLayout(new GridLayout(2, 1));
         con.add(panel);
         con.add(scrollPane);
 
@@ -60,16 +59,17 @@ class IdeanMan implements ActionListener{
         btnSave.setActionCommand("save");
     }
 
-    public void actionPerformed(ActionEvent ae){
+
+    public void actionPerformed(ActionEvent ae) {
         String cmd = ae.getActionCommand();
         if(cmd.equals("open")){
+
             JFileChooser fc = new JFileChooser();
 
             fc.setCurrentDirectory(new File("."));
 
             int ret = fc.showOpenDialog(frame);
-            if(ret == JFileChooser.APPROVE_OPTION){
-
+            if(ret == JFileChooser.APPROVE_OPITON) {
                 File file = fc.getSelectedFile();
                 filedata = file.getAbsolutePath();
                 field.setText(filedata);
@@ -91,38 +91,31 @@ class IdeanMan implements ActionListener{
             } catch(IOException e){
                 System.out.println("IO Error");
             }
-        }else if (cmd.equals("save")){
-        
+        } else if (cmd.equals("save")) {
             JFileChooser fc = new JFileChooser();
 
-        
             fc.setCurrentDirectory(new File("."));
 
-            
             int ret = fc.showSaveDialog(frame);
 
-        
-            if(ret == JFileChooser.APPROVE_OPTION){
-            
+            if(ret == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                
+
                 filedata = file.getAbsolutePath();
             }
 
             textdata = area.getText();
             try {
                 File outFile = new File(filedata);
-                FileWriter fw = new FileWriter(outFile);
+                FileWriter fw =new FileWriter(outFile);
                 BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw);
+                PrintWriter pw = new PrintWriter(bw); 
 
                 area2.setText(textdata);
-                pw.println("ALOHA");
+                pw.println(textdata);
 
-                fw.close();
                 pw.close();
-
-            } catch(IOException e){
+            } catch(IOException e) {
                 System.out.println("IO Error");
             }
         }
