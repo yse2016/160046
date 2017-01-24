@@ -3,65 +3,128 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class Idean {
-    public static void main(String[] args) {
+public class Idean{
+    public static void main(String[] args){
         IdeanMan im = new IdeanMan();
     }
 }
 
+class IdeanMan implements ActionListener{
 
-class IdeanMan implements ActionListener {
-
-    JFrame frame; 
-    JTextField fileName;
-    JPanel filePanel;
-    JButton openBtn;
-    JButton saveBtn;
-    JTextArea textArea;
+    JFrame frame;
+    JButton btnOpen;
+    JButton btnSave;
+    JPanel panel;
+    JTextField field;
+    JTextArea area;
+    JTextArea area2;
     JScrollPane scrollPane;
+    String filedata;
+    String textdata;
 
-    public IdeanMan() {
-        frame = new JFrame("TextEditor");
-        frame.setLocation(600, 50);
-        frame.setSize(400, 400);
+
+    public IdeanMan(){
+
+        frame = new JFrame("HELLO");
+        frame.setLocation(400,250);
+        frame.setSize(500,400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        fileName = new JTextField(15);
+        btnOpen = new JButton("単語２個表示");
+        btnSave = new JButton("メモを保存");
 
-        openBtn = new JButton("開く");
-        openBtn.addActionListener(this);
-        openBtn.setActionCommand("open");
+        field = new JTextField(20);
+        area = new JTextArea(10,30);
+        area2 = new JTextArea(5,20);
+        area.setLineWrap(true);
 
-        saveBtn = new JButton("保存");
-        saveBtn.addActionListener(this);
-        saveBtn.setActionCommand("save");
+        panel = new JPanel();
+        panel.add(field);
+        panel.add(btnOpen);
+        panel.add(btnSave);
+        panel.add(area2);
 
-        textArea = new JTextArea(10, 30);
-        scrollPane = new JScrollPane(textArea);
-
-        filePanel = new JPanel();
-        filePanel.add(fileName);
-        filePanel.add(openBtn);
-        filePanel.add(saveBtn);
+        scrollPane = new JScrollPane(area);
 
         Container con = frame.getContentPane();
-        con.setLayout(new GridLayout(2, 1));
-        con.add(filePanel);
+        con.setLayout(new GridLayout(2,1));
+        con.add(panel);
         con.add(scrollPane);
 
         frame.setVisible(true);
+
+        btnOpen.addActionListener(this);
+        btnOpen.setActionCommand("open");
+
+        btnSave.addActionListener(this);
+        btnSave.setActionCommand("save");
     }
 
-
     public void actionPerformed(ActionEvent ae){
-        textArea.setText("ALOHA");
-
         String cmd = ae.getActionCommand();
+        if(cmd.equals("open")){
+            JFileChooser fc = new JFileChooser();
 
-        if(cmd.equals("open")) {
-            textArea.setText("OPEN...");
-        } else if (cmd.equals("save")) {
-            textArea.setText("SAVE...");
+            fc.setCurrentDirectory(new File("."));
+
+            int ret = fc.showOpenDialog(frame);
+            if(ret == JFileChooser.APPROVE_OPTION){
+
+                File file = fc.getSelectedFile();
+                filedata = file.getAbsolutePath();
+                field.setText(filedata);
+            }
+
+            try {
+                File inFile = new File(filedata);
+                FileReader fr = new FileReader(inFile);
+                BufferedReader br = new BufferedReader(fr);
+
+                String line;
+                while((line = br.readLine()) != null){
+                    area.append(line);
+                    area.append("\n");
+                }
+
+                br.close();
+
+            } catch(IOException e){
+                System.out.println("IO Error");
+            }
+        }else if (cmd.equals("save")){
+        
+            JFileChooser fc = new JFileChooser();
+
+        
+            fc.setCurrentDirectory(new File("."));
+
+            
+            int ret = fc.showSaveDialog(frame);
+
+        
+            if(ret == JFileChooser.APPROVE_OPTION){
+            
+                File file = fc.getSelectedFile();
+                
+                filedata = file.getAbsolutePath();
+            }
+
+            textdata = area.getText();
+            try {
+                File outFile = new File(filedata);
+                FileWriter fw = new FileWriter(outFile);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+
+                area2.setText(textdata);
+                pw.println("ALOHA");
+
+                fw.close();
+                pw.close();
+
+            } catch(IOException e){
+                System.out.println("IO Error");
+            }
         }
     }
 }
