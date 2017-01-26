@@ -10,33 +10,59 @@ public class Idean{
 }
 
 class IdeanMan implements ActionListener{
-
     JFrame frame;
     JButton btnOpen;
     JButton btnSave;
-    JPanel panel;
-    JTextField field;
     JTextArea area;
     JTextArea area2;
+    JTextArea textArea;    
+    JPanel btnPanel;
+    JPanel panel;
+    JLabel word1;
+    JLabel word2;
+    JPanel wordsPanel;
+    JTextField field;
     JScrollPane scrollPane;
     String filedata;
     String textdata;
+    int num;
 
     
     public IdeanMan(){
-
         frame = new JFrame("Idean");
-        frame.setLocation(400,250);
-        frame.setSize(500,400);
+        frame.setLocation(400,400);
+        frame.setSize(450,450);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        btnOpen = new JButton("選択");
-        btnSave = new JButton("保存");
+        btnOpen = new JButton("Open");
+        btnOpen.addActionListener(this);
+        btnOpen.setActionCommand("open");  
+
+        btnSave = new JButton("Save");
+        btnSave.addActionListener(this);
+        btnSave.setActionCommand("save");
+
+        btnPanel = new JPanel();
+        btnPanel.add(btnOpen);
+        btnPanel.add(btnSave);
 
         field = new JTextField(20);
+
+        word1 = new JLabel("WORD1");
+        word2 = new JLabel("WORD2");
+        wordsPanel = new JPanel();
+        wordsPanel.add(word1);
+        wordsPanel.add(word2);
+        word1.setText("ALOHA");
+        word2.setText("Good Afternoon");
+
         area = new JTextArea(10,30);
         area2 = new JTextArea(5,20);
         area.setLineWrap(true);
+
+        textArea = new JTextArea(5, 20);
+
+        scrollPane = new JScrollPane(textArea);
 
         panel = new JPanel();
         panel.add(field);
@@ -44,21 +70,16 @@ class IdeanMan implements ActionListener{
         panel.add(btnSave);
         panel.add(area2);
 
-        scrollPane = new JScrollPane(area);
+        num = (int)(Math.random()*10);
 
         Container con = frame.getContentPane();
         con.setLayout(new GridLayout(2,1));
         con.add(panel);
+        con.add(wordsPanel);
+        con.add(btnPanel);
         con.add(scrollPane);
 
         frame.setVisible(true);
-
-        btnOpen.addActionListener(this);
-        btnOpen.setActionCommand("open");
-
-        btnSave.addActionListener(this);
-        btnSave.setActionCommand("save");
-
     }
 
     public void actionPerformed(ActionEvent ae){
@@ -77,9 +98,9 @@ class IdeanMan implements ActionListener{
             }
 
             try {
-                File inFile = new File(filedata);
-                FileReader fr = new FileReader(inFile);
-                BufferedReader br = new BufferedReader(fr);
+                File inFile                 = new File(filedata);
+                FileReader fr               = new FileReader(inFile);
+                BufferedReader br           = new BufferedReader(fr);
 
                 String line;
                 while((line = br.readLine()) != null){
