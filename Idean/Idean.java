@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
-public class Idean{
+public class Idean {
     public static void main(String[] args) {
         IdeanMan im = new IdeanMan();
     }
@@ -26,6 +26,7 @@ class IdeanMan implements ActionListener {
     JTextArea tango1;
     JTextArea tango2;
     JScrollPane scrollPane;
+
 
     // method
     public IdeanMan() {
@@ -74,7 +75,7 @@ class IdeanMan implements ActionListener {
         btnPanel = new JPanel();
         btnPanel.add(openBtn);
         btnPanel.add(saveBtn);
-        btnPanel.add(nextBtn);
+        btnPanel.add(nextBtgithubn);
         btnPanel.add(pasteBtn);
 
         // ウィンドウに、パネルを載せる
@@ -88,11 +89,11 @@ class IdeanMan implements ActionListener {
         frame.setVisible(true);
     }
 
+
 public void actionPerformed(ActionEvent ae) {
         // 必要なデータを作る
         String cmd = ae.getActionCommand();
         String textFileName = "IdeaMan.txt";
-        String textFileName2 = "IdeaMan2.txt";
         String data;
         String tangoDam = "words.txt";
 
@@ -109,7 +110,7 @@ public void actionPerformed(ActionEvent ae) {
         PrintWriter pw = null;
 
         if (cmd.equals("open")) {
-            /*上書きから付け足し
+/*            上書きから付け足し
             textArea.setText("OPEN...");
             textArea.append("OPEN..." + '\n');
 */
@@ -147,7 +148,7 @@ public void actionPerformed(ActionEvent ae) {
         } else if (cmd.equals("save")) {
             try{
                 // ファイルを開く
-                fo = new FileOutputStream("IdeanMan.txt");
+                fo = new FileOutputStream("IdeaMan.txt");
                 ow = new OutputStreamWriter(fo, "UTF-8");
                 bw = new BufferedWriter(ow);
                 pw = new PrintWriter(bw);
@@ -162,8 +163,8 @@ public void actionPerformed(ActionEvent ae) {
             } finally {
                 // ファイルを閉じる
                 try{
-                    //fo.close();
-                    //ow.close();
+//                    fo.close();
+//                    ow.close();
                     bw.close();
                     pw.close();
                 } catch(IOException e) {
@@ -189,17 +190,18 @@ public void actionPerformed(ActionEvent ae) {
                     tango1.setText(data2[num1]);
                     tango2.setText(data2[num2]);
                 }
-
             } catch(IOException e) {
-                System.out.println("IO errer");
+                System.out.println("IOerrer");
             }
         } else if (cmd.equals("paste")) {
             String text1;
             String text2;
 
-        text1 = tango1.getText();
-        text2 = tango2.getText();
-        textArea.append(text1 + "," + text2 + '\n');
+            text1 = tango1.getText();
+            text2 = tango2.getText();
+
+            textArea.append(text1 + "," + text2 + '\n');
         }
     }
 }
+
