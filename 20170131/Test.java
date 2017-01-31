@@ -14,7 +14,6 @@ class TestMan implements ActionListener{
 	JFrame frame;
 	JTextField fileName;
 	JPanel filePanel;
-	JLabel label;
 	JButton oneBtn;
 	JButton twoBtn;
 	JButton threeBtn;
@@ -68,21 +67,19 @@ class TestMan implements ActionListener{
 
 
 	public void actionPerformed(ActionEvent ae){
-		textArea.setText("正解!");
-
 		String cmd = ae.getActionCommand();
 
 		if(cmd.equals("1")){
-			textArea.setText("不正解"+1);
+			textArea.setText("不正解");
 
-		}else if (cmd.equals("2")){
+		}else if(cmd.equals("2")){
 			textArea.setText("正解");
 
 		}else if (cmd.equals("3")){
-			textArea.setText("不正解"+1);
+			textArea.setText("不正解");
 
 		}else if (cmd.equals("4")){
-			textArea.setText("不正解"+1);
+			textArea.setText("不正解");
 		}
 	}
 }
