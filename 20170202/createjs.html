@@ -44,7 +44,7 @@
         } else if (miniStar.x < 0) {
           vx = +10;
           miniStar.x = 0;
-        }
+      }
 
 
         // 複数の星とのアタリ判定をfor文でチェックする
@@ -62,7 +62,7 @@
                     .beginFill("Red")
                     .drawPolyStar(0, 0, 30, 10, 0.6, -90);
           } else {
-            // i番目の星を緑色で塗る
+            // i番目の星を黒色で塗る
             poly.graphics.clear()
                     .beginFill("Black")
                     .drawPolyStar(0, 0, 30, 10, 0.6, -90);
