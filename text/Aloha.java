@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Aloha {
 	public static void main(String[] args) {
 		// テキストデータをつくる
-		String src = "Kyoko was a high school student. Jennifer, a student from Canada, was staying with Kyoko's family.";		// HashMap
+		String src = "Kyoko was a high school student. Jennifer, a student from Canada, was staying with Kyoko's family. Kyoko and Jennifer were going to have job.";
 
 		//	データをきれいにする(replace())
 		src = src.replace(".", "");
