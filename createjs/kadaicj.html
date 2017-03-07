@@ -1,9 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test: createjs</title>
+  <meta charset="utf-8">
+  <title>kadaicj</title>
 </head>
 <body>
+  <h1>createjsの課題</h1>
+  <hr>
 
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+  <script>
+  window.addEventListener('load', init);
+  function init(){
+    // stageオブジェクトをつくる
+    var stage = new createjs.Stage("myCanvas");
+
+    // shapeオブジェクトをつくる
+    var shape = new createjs.Shape();
+    // 色
+    shape.graphics.beginFill("Red");
+    // 形
+    shape.graphics.drawCircle(0, 100, 70);
+
+    // stageに、shapeをのせる
+    stage.addChild(shape);
+
+    // stage表示を更新する
+    // 向きは、プラス( 右向き )
+    var muki = 1;
+    createjs.Ticker.on('tick', function(){
+      // 座標を変更する(向きの変数つき)
+      shape.x += 10 * muki;
+
+      if( shape.x > 500 ) muki = -1;
+      if( shape.x < 0) muki = +1;
+
+      // 端までいったら、、、逆方向に移動しろ
+      // 座標は変えない
+      // 進行方向を変える
+      // 進行方向を表す変数をつくる
+      if(shape.x == 900){
+        shape.x = 0;
+      }
+
+      // 再び描写する
+      stage.update();
+      });
+    }
+  </script>
 </body>
 </html>
